@@ -19,8 +19,8 @@ Two CVE-scan flavours, picked by whether a published image exists yet:
   repos (the **identity** fleet: medici, notaio, atrium, bolla, florin,
   loginwith.email) and **libraries** with no image (medici-webhook-sdk).
   Inputs: `ecosystem` (python|node), `legacy_peer_deps` (node, for
-  florin's Angular tree); optional `MEDICI_SDK_TOKEN` secret for python
-  repos that pin the private medici-webhook-sdk release wheel. Identity
+  florin's Angular tree); optional `MEDICI_SDK_DEPLOY_KEY` (SSH) secret for python
+  repos that pin the private medici-webhook-sdk over an SSH git tag. Identity
   repos move to the image-based scan once they cut their first release.
 
 A released-image consumer calls the image-based one like:
@@ -66,7 +66,7 @@ jobs:
       ecosystem: python        # or: node
       # legacy_peer_deps: true # node only (florin)
     secrets:
-      MEDICI_SDK_TOKEN: ${{ secrets.MEDICI_SDK_TOKEN }}  # atrium, notaio only
+      MEDICI_SDK_DEPLOY_KEY: ${{ secrets.MEDICI_SDK_DEPLOY_KEY }}  # atrium, notaio only
 ```
 
 This replaces the per-repo copy-pasted scan logic so a change to
